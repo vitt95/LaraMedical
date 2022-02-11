@@ -1,7 +1,11 @@
 require('./bootstrap');
 
-import {createApp , defineAsyncComponent, defineComponent} from 'vue';
+import bootstrap from 'bootstrap';
+
+import { createApp , defineAsyncComponent } from 'vue';
 
 const app = createApp({});
+
+app.component('list-component', defineAsyncComponent(() => import('./vue/components/TestListComponent.vue')));
 
 app.mount("#app");

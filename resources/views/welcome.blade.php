@@ -3,8 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Sanremo</title>
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <title>Persivald</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -21,8 +21,8 @@
         </style>
     </head>
     <body class="antialiased">
-        <div id="app">
-            <app-component></app-component>
+            <div id="app">
+            </div>
         </div>
 
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">

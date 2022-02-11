@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
+use App\Enums\AvailableServices;
 
 class ExampleTest extends TestCase
 {
@@ -15,4 +16,5 @@ class ExampleTest extends TestCase
     {
         $this->assertTrue(true);
     }
+
 }
