@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\MedicalStaff;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class MedicalStaffController extends Controller
 {
@@ -16,6 +17,8 @@ class MedicalStaffController extends Controller
     public function index()
     {
         return DB::table('medical_staff')->whereJsonContains('role_info->role', 'medico')->get();
+
+        //return Inertia::render('page');
     }
 
     /**
