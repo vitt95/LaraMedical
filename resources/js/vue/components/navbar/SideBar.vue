@@ -9,10 +9,10 @@
                 <li class="sidebar-header">Pages</li>
 
                 <li class="sidebar-item active">
-                    <a class="sidebar-link" href="index.html">
+                    <Link class="sidebar-link" href="test">
                         <i class="align-middle" data-feather="sliders"></i>
                         <span class="align-middle">Dashboard</span>
-                    </a>
+                    </Link>
                 </li>
 
                 <li class="sidebar-item">
@@ -49,7 +49,11 @@
 
 <script>
 import SimpleBar from "simplebar";
+import {Link} from '@inertiajs/inertia-vue3';
 export default {
+    components: {
+        Link
+    },
     setup(props) {
 
         const initialize = () => {

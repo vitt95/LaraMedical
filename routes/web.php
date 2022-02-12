@@ -16,9 +16,12 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return inertia('Dashboard');
 });
 
+Route::get('/test', function(){
+    return inertia('Page');
+});
 
 Route::get('/index', [ReservationController::class, 'index']);
 Route::get('/doctor', [MedicalStaffController::class, 'index']);

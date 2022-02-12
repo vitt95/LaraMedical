@@ -294,13 +294,12 @@
 </template>
 
 <script>
-import feather from 'feather-icons'
+import feather from "feather-icons";
 
 export default {
-
-    mounted(){
+    mounted() {
         feather.replace();
-    }
+    },
 };
 </script>
 
