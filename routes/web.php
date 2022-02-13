@@ -15,12 +15,12 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
+Route::get('/dashboard', function () {
     return inertia('Dashboard');
 });
 
-Route::get('/test', function(){
-    return inertia('Page');
+Route::get('/profile', function(){
+    return inertia('Profile');
 });
 
 Route::get('/index', [ReservationController::class, 'index']);

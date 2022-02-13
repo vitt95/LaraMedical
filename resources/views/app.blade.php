@@ -24,9 +24,7 @@
   </head>
   <body>
       <div id="apps" class="wrapper">
-          <div id="sidebarMount">
-            <side-bar></side-bar>
-          </div>
+        <x-sidebar></x-sidebar>
           <div class="main">
               <div id="navbarMount">
                 <nav-bar></nav-bar>
@@ -36,6 +34,9 @@
                     @inertia
                 </div>
             </main>
+            <div id="footerMount">
+                <footer-component></footer-component>
+            </div>
           </div>
       </div>
   </body>

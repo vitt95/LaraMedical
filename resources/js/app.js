@@ -17,11 +17,7 @@ const app = document.getElementById("inertia-c");
 
 if(app){
     createInertiaApp({
-        resolve: (name) => {
-            const page = require(`./Pages/${name}`);
-            console.log(page);
-            return page;
-        },
+        resolve: (name) => import(`./Pages/${name}`),
         setup({ el, App, props, plugin }) {
             createApp({ render: () => h(App, props) })
                 .use(plugin)
@@ -40,14 +36,18 @@ if(app){
 if(apps){
     const navbarMount = document.getElementById("navbarMount");
     const sideBarMount = document.getElementById("sidebarMount");
+    const footerMount = document.getElementById("footerMount");
 
     const sidebar = createApp({});
     const navbar = createApp({});
+    const footer = createApp({});
 
     sidebar.component('side-bar', require('./vue/components/navbar/SideBar.vue').default);
     navbar.component('nav-bar', require('./vue/components/navbar/NavBar.vue').default);
+    footer.component('footer-component', require('./vue/components/footer/Footer.vue').default);
 
     navbar.mount(navbarMount);
     sidebar.mount(sideBarMount);
+    footer.mount(footerMount);
 
 }

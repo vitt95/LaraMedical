@@ -8,18 +8,18 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-header">Pages</li>
 
-                <li class="sidebar-item active">
-                    <Link class="sidebar-link" href="test">
+                <li @click="switchActive($event)" class="sidebar-item active">
+                    <Link class="sidebar-link" href="/dashboard">
                         <i class="align-middle" data-feather="sliders"></i>
                         <span class="align-middle">Dashboard</span>
                     </Link>
                 </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-profile.html">
+                <li @click="switchActive($event)" class="sidebar-item">
+                    <Link class="sidebar-link" href="profile">
                         <i class="align-middle" data-feather="user"></i>
                         <span class="align-middle">Profile</span>
-                    </a>
+                    </Link>
                 </li>
 
                 <li class="sidebar-item">
@@ -54,7 +54,12 @@ export default {
     components: {
         Link
     },
+
+    props : ["index"],
+
     setup(props) {
+
+        const index = props.index;
 
         const initialize = () => {
                 const simplebarElement =
@@ -97,14 +102,58 @@ export default {
         }
 
         return {
-            initialize
+            initialize,
+            index,
         }
     },
 
+    /**
+     * Index is provided by server through a laravel wrapper component
+     */
     mounted() {
         this.initialize();
+
+        /**
+         * Set the active tab of SideBar component taking the right index from the server directly
+         */
+        this.setActive(this.index);
+
     },
 
+    methods : {
+        switchActive(event){
+            let target = null;
+            switch (event.target.tagName) {
+                case 'SPAN':
+                    target = event.target.parentNode.parentNode;
+                    break;
+
+                case ('A' || 'I'):
+                    target = event.target.parentNode;
+                    break;
+            }
+
+            if(!(target).classList.contains('active')){
+                const sideElements = document.querySelectorAll('.sidebar-item');
+                sideElements.forEach((elem) => {
+                    if(elem.classList.contains('active')){
+                        elem.classList.remove('active');
+                    }
+                });
+                target.classList.add('active')
+            }
+        },
+
+        setActive(index){
+            const sideElements = document.querySelectorAll('.sidebar-item');
+            sideElements.forEach((elem) => {
+                if(elem.classList.contains('active')){
+                    elem.classList.remove('active');
+                }
+            });
+            sideElements[index].classList.add('active');
+        }
+    }
 };
 </script>
 
