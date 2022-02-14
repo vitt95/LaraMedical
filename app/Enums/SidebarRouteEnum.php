@@ -13,7 +13,8 @@ namespace App\Enums
          */
         protected static $needles = [
             "DASHBOARD",
-            "PROFILE"
+            "PROFILE",
+            "ADD/PATIENT"
         ];
 
         public static function get_needles(){

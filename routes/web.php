@@ -23,5 +23,9 @@ Route::get('/profile', function(){
     return inertia('Profile');
 });
 
+Route::get('/add/patient', function(){
+    return inertia('PatientForm');
+});
+
 Route::get('/index', [ReservationController::class, 'index']);
 Route::get('/doctor', [MedicalStaffController::class, 'index']);

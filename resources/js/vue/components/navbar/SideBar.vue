@@ -16,17 +16,17 @@
                 </li>
 
                 <li @click="switchActive($event)" class="sidebar-item">
-                    <Link class="sidebar-link" href="profile">
+                    <Link class="sidebar-link" href="/profile">
                         <i class="align-middle" data-feather="user"></i>
                         <span class="align-middle">Profile</span>
                     </Link>
                 </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="pages-sign-in.html">
+                <li @click="switchActive($event)" class="sidebar-item">
+                    <Link class="sidebar-link" href="/add/patient">
                         <i class="align-middle" data-feather="log-in"></i>
-                        <span class="align-middle">Sign In</span>
-                    </a>
+                        <span class="align-middle">Aggiungi paziente</span>
+                    </Link>
                 </li>
 
                 <li class="sidebar-item">

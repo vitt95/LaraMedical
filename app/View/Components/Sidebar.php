@@ -60,7 +60,6 @@ class Sidebar extends Component
                 $i++;
             }
         }
-
         if($found){
             return $i;
         }else return -1;
