@@ -285,7 +285,9 @@
                             Help Center</a
                         >
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Log out</a>
+                        <form method="post" :action="logout">
+                            <a type="submit" class="dropdown-item">Log out</a>
+                        </form>
                     </div>
                 </li>
             </ul>
@@ -297,6 +299,9 @@
 import feather from "feather-icons";
 
 export default {
+
+    props: ['logout'],
+
     mounted() {
         feather.replace();
     },

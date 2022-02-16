@@ -31,7 +31,7 @@
         </div>
         <div class="main">
             <div id="navbarMount">
-                <nav-bar></nav-bar>
+                <nav-bar logout="{{route('logout')}}"></nav-bar>
             </div>
             <main class="content">
                 <div id="inertia-c">
