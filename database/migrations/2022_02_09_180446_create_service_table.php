@@ -22,7 +22,7 @@ class CreateServiceTable extends Migration
             $table->integer("max")->nullable(false);
             $table->time("duration");
             $table->json("available_days");
-            $table->timestamp("delta");
+            $table->time("delta");
             $table->enum("type", AvailableServicesEnum::TakeAllServices());
         });
     }

@@ -16,7 +16,7 @@ class MedicalStaffController extends Controller
      */
     public function index()
     {
-        return DB::table('medical_staff')->whereJsonContains('role_info->role', 'medico')->get();
+        return DB::table('medical_staff')->get();
 
         //return Inertia::render('page');
     }
