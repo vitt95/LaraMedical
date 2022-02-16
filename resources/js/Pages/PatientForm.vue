@@ -130,7 +130,15 @@
 </template>
 
 <script>
-export default {};
+import { Inertia } from '@inertiajs/inertia'
+
+export default {
+
+    mounted(){
+        const event = new CustomEvent('child_component_index', {detail: 2});
+        dispatchEvent(event);
+    }
+};
 </script>
 
 <style></style>

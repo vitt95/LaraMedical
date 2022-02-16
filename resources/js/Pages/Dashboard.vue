@@ -375,6 +375,11 @@
 <script>
 export default {
     name: "dashboard",
+
+    mounted(){
+        const event = new CustomEvent('child_component_index', {detail: 0});
+        dispatchEvent(event);
+    }
 };
 </script>
 

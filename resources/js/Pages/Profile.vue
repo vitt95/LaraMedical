@@ -321,7 +321,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+
+    mounted(){
+        const event = new CustomEvent('child_component_index', {detail: 1});
+        dispatchEvent(event);
+    }
+};
 </script>
 
 <style></style>
