@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\MedicalStaffController;
+use App\Models\MedicalStaff;
+use Faker\Provider\Medical;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 /*
 |--------------------------------------------------------------------------
@@ -15,17 +18,30 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/dashboard', function () {
-    return inertia('Dashboard');
+Route::get('/session', function(Request $request){
+    dd($request->session()->all());
 });
 
-Route::get('/profile', function(){
-    return inertia('Profile');
-});
+Route::middleware(['auth'])->group(function(){
 
-Route::get('/add/patient', function(){
-    return inertia('PatientForm');
+    Route::get('/dashboard', function () {
+        return inertia('Dashboard');
+    });
+
+    Route::get('/profile', function(){
+        return inertia('Profile');
+    });
+
+    Route::get('/add/patient', function(){
+        return inertia('PatientForm');
+    });
+
+    Route::get('/user', function(MedicalStaff $user){
+        return $user->getAuthenticatedUser();
+    });
 });
 
 Route::get('/index', [ReservationController::class, 'index']);
 Route::get('/doctor', [MedicalStaffController::class, 'index']);
+
+

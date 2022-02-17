@@ -286,7 +286,8 @@
                         >
                         <div class="dropdown-divider"></div>
                         <form method="post" :action="logout">
-                            <a type="submit" class="dropdown-item">Log out</a>
+                            <input type="hidden" :value="csrf" name="_token">
+                            <button type="submit" class="dropdown-item">Log out</button>
                         </form>
                     </div>
                 </li>
@@ -300,7 +301,7 @@ import feather from "feather-icons";
 
 export default {
 
-    props: ['logout'],
+    props: ['logout', 'csrf'],
 
     mounted() {
         feather.replace();

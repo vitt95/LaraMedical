@@ -31,7 +31,7 @@
         </div>
         <div class="main">
             <div id="navbarMount">
-                <nav-bar logout="{{route('logout')}}"></nav-bar>
+                <nav-bar csrf="{{csrf_token()}}" logout="{{route('logout')}}"></nav-bar>
             </div>
             <main class="content">
                 <div id="inertia-c">
