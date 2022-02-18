@@ -31,7 +31,14 @@
         </div>
         <div class="main">
             <div id="navbarMount">
-                <nav-bar></nav-bar>
+                @auth('medical')
+                    <nav-bar name="{{auth()->user()->name}}"
+                        lastname="{{auth()->user()->lastname}}"
+                        ></nav-bar>
+                @endauth
+                @guest
+                    <nav-bar></nav-bar>
+                @endguest
             </div>
             <main class="content">
                 <div id="inertia-c">

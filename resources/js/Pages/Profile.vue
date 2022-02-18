@@ -2,9 +2,6 @@
     <div class="container-fluid p-0">
         <div class="mb-3">
             <h1 class="h3 d-inline align-middle">Profile</h1>
-            <a class="badge bg-dark text-white ms-2" href="upgrade-to-pro.html">
-                Get more page examples
-            </a>
         </div>
         <div class="row">
             <div class="col-md-4 col-xl-3">
@@ -20,7 +17,7 @@
                             width="128"
                             height="128"
                         />
-                        <h5 class="card-title mb-0">Christina Mason</h5>
+                        <h5 v-if="user !== undefined" class="card-title mb-0">{{user.name +' '+ user.lastname}}</h5>
                         <div class="text-muted mb-2">Lead Developer</div>
 
                         <div>
@@ -59,7 +56,7 @@
                                     data-feather="home"
                                     class="feather-sm me-1"
                                 ></span>
-                                Lives in <a href="#">San Francisco, SA</a>
+                                Lives in <a href="#">{{user.address}}</a>
                             </li>
 
                             <li class="mb-1">
@@ -323,9 +320,15 @@
 <script>
 export default {
 
+    props : ["user"],
+
     mounted(){
         const event = new CustomEvent('child_component_index', {detail: 1});
         dispatchEvent(event);
+
+        if(this.user !== undefined){
+            console.log(this.user);
+        }
     }
 };
 </script>
