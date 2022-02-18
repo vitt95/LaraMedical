@@ -29,6 +29,8 @@ class MedicalStaff extends Authenticatable
         'two_factor_recovery_codes'
     ];
 
+    public $table = "medical_staff";
+
     public function getAuthenticatedUser(){
         if(Auth::check()){
             return Auth::user();
