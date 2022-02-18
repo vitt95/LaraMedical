@@ -127,5 +127,4 @@ class MedicalStaffController extends Controller
 
         throw new Exception("User is not authenticated");
     }
-
 }
