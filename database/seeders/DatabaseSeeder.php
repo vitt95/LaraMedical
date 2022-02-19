@@ -18,14 +18,14 @@ class DatabaseSeeder extends Seeder
         // \App\Models\Patient::factory(10)->create();
         //\App\Models\MedicalStaff::factory(10)->create();
 
-        /*\App\Models\Reservation::factory(10)
+        \App\Models\Reservation::factory(10)
             ->create();
 
         \App\Models\MedicalExamination::factory(10)
             ->create();
 
         \App\Models\Reservation::factory(10)
-            ->create();*/
+            ->create();
 
         \App\Models\MedicalStaff::create([
             'name' => 'Vittorio',

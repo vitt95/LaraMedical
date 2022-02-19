@@ -13,7 +13,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('medical_staffs', function (Blueprint $table) {
+        Schema::create('medical_staff', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('lastname');
