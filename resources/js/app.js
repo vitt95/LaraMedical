@@ -12,6 +12,8 @@ import { InertiaProgress } from '@inertiajs/progress'
 // Wrapper to initialize vue native components
 const apps = document.getElementById("apps");
 
+const loginMnt = document.getElementById("loginmnt");
+
 // Wrapper to initialize inertia component
 const app = document.getElementById("inertia-c");
 
@@ -50,4 +52,12 @@ if(apps){
     sidebar.mount(sideBarMount);
     footer.mount(footerMount);
 
+}
+
+if(loginMnt){
+    const login = createApp({});
+
+    login.component('login-card', defineAsyncComponent(() => import('./vue/components/login/LoginCard.vue')));
+
+    login.mount(loginMnt);
 }
