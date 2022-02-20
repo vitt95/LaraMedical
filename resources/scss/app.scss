@@ -26,6 +26,7 @@
 @import "./node_modules/bootstrap/scss/close";
 @import "./node_modules/bootstrap/scss/helpers";
 @import "./node_modules/bootstrap/scss/utilities/api";
+@import "./node_modules/bootstrap/scss/_spinners.scss";
 
 // Theme mixins
 @import "2-mixins/button";
@@ -54,13 +55,17 @@
 // Theme utilities
 @import "4-utilities/cursors";
 
+//3rd party plugin styles
+
+@import "5-vendor/flatpickr";
+@import "5-vendor/simplebar";
+
+
 // 3rd party plugins
 /*
 @import "~jsvectormap/dist/css/jsvectormap";
 @import "~simplebar/dist/simplebar";
 @import "~flatpickr/dist/flatpickr";
-
-// 3rd party plugin styles
-@import "5-vendor/flatpickr";
-@import "5-vendor/simplebar";
 */
+
+

@@ -11956,6 +11956,77 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+@-webkit-keyframes spinner-border {
+  to {
+    transform: rotate(360deg) /* rtl:ignore */;
+  }
+}
+@keyframes spinner-border {
+  to {
+    transform: rotate(360deg) /* rtl:ignore */;
+  }
+}
+.spinner-border {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  vertical-align: -0.125em;
+  border: 0.25em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  -webkit-animation: 0.75s linear infinite spinner-border;
+          animation: 0.75s linear infinite spinner-border;
+}
+
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+  border-width: 0.2em;
+}
+
+@-webkit-keyframes spinner-grow {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes spinner-grow {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: none;
+  }
+}
+.spinner-grow {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  vertical-align: -0.125em;
+  background-color: currentColor;
+  border-radius: 50%;
+  opacity: 0;
+  -webkit-animation: 0.75s linear infinite spinner-grow;
+          animation: 0.75s linear infinite spinner-grow;
+}
+
+.spinner-grow-sm {
+  width: 1rem;
+  height: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner-border,
+.spinner-grow {
+    -webkit-animation-duration: 1.5s;
+            animation-duration: 1.5s;
+  }
+}
 .avatar {
   width: 40px;
   height: 40px;
@@ -13068,12 +13139,111 @@ a {
   cursor: pointer;
 }
 
+.flatpickr-calendar.inline {
+  background: transparent;
+  box-shadow: none;
+  width: 100%;
+}
+.flatpickr-calendar.inline .flatpickr-days {
+  width: 100%;
+}
+.flatpickr-calendar.inline .dayContainer {
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+}
+.flatpickr-calendar.inline .flatpickr-day {
+  border-radius: 0.2rem;
+  max-width: inherit;
+  height: 45px;
+  line-height: 45px;
+}
+.flatpickr-calendar.inline .flatpickr-day.today {
+  border: 0;
+}
+.flatpickr-calendar.inline .flatpickr-day.today:before {
+  content: "";
+  display: inline-block;
+  border-color: rgba(0, 0, 0, 0.2) transparent #3B7DDD;
+  border-style: solid;
+  border-width: 0 0 7px 7px;
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+}
+.flatpickr-calendar.inline .flatpickr-day.today.selected:before {
+  border-color: rgba(0, 0, 0, 0.2) transparent #fff;
+}
+.flatpickr-calendar.inline .flatpickr-day.today:hover {
+  background: #e6e6e6;
+  color: #000;
+}
+.flatpickr-calendar.inline .flatpickr-day.selected, .flatpickr-calendar.inline .flatpickr-day.selected:hover, .flatpickr-calendar.inline .flatpickr-day.selected:focus {
+  border-radius: 0.2rem;
+  background: #3B7DDD;
+  color: #fff;
+}
+.flatpickr-calendar.inline .flatpickr-weekdays {
+  height: 45px;
+}
+.flatpickr-calendar.inline .flatpickr-weekday {
+  height: 45px;
+  line-height: 45px;
+}
+.flatpickr-calendar.inline .flatpickr-months .flatpickr-month {
+  height: 45px;
+}
+.flatpickr-calendar.inline .flatpickr-months .flatpickr-prev-month,
+.flatpickr-calendar.inline .flatpickr-months .flatpickr-next-month {
+  height: 45px;
+}
+.flatpickr-calendar.inline .flatpickr-current-month {
+  padding-top: 0;
+  line-height: 45px;
+  height: 45px;
+}
+.flatpickr-calendar.inline .flatpickr-current-month .flatpickr-monthDropdown-months {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.flatpickr-calendar.inline .flatpickr-current-month .flatpickr-monthDropdown-months,
+.flatpickr-calendar.inline .flatpickr-current-month input.cur-year {
+  font-weight: 400;
+  font-size: 1.09375rem;
+}
+.flatpickr-calendar.inline .flatpickr-prev-month,
+.flatpickr-calendar.inline .flatpickr-next-month {
+  width: 45px;
+  border-radius: 0.2rem;
+}
+.flatpickr-calendar.inline .flatpickr-prev-month:hover,
+.flatpickr-calendar.inline .flatpickr-next-month:hover {
+  background: #e6e6e6;
+  color: #000;
+}
+
+.simplebar-scrollbar:before {
+  background: #fff;
+}
+
+.simplebar-content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding-bottom: 0 !important;
+}
+
+[data-simplebar] {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 260px;
+}
+
 /*
 @import "~jsvectormap/dist/css/jsvectormap";
 @import "~simplebar/dist/simplebar";
 @import "~flatpickr/dist/flatpickr";
-
-// 3rd party plugin styles
-@import "5-vendor/flatpickr";
-@import "5-vendor/simplebar";
 */

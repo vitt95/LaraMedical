@@ -6,7 +6,7 @@
 
     <div class="position-absolute top-50 start-50 translate-middle">
         <div id="loginmnt">
-            <login-card csrf_token="{{csrf_token()}}"></login-card>
+            <login-form csrf_token="{{csrf_token()}}"></login-form>
         </div>
     </div>
 @endsection

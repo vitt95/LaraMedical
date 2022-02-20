@@ -1,14 +1,21 @@
 @extends('auth.layout')
 
-@section('title', 'Forgot password')
+@section('title', __("Forgot password"))
 
 @section('content')
-<div class="container">
-    <h1>Input your email</h1>
-    <div class="input-group mt-4">
-        <span class="input-group-text" id="basic-addon1">@</span>
-        <input type="text" class="form-control" placeholder="Username" aria-label="Email"
-            aria-describedby="basic-addon1">
+    <div class="position-absolute top-50 start-50 translate-middle">
+        <div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Immetti la tua email</h3>
+                    <form id="recpswd" method="POST" action="/forgot-password">
+                        @csrf
+                        <input type="email" name="email" class="form-control" id="emaillogin" aria-describedby="emailHelp" />
+                        <small class="mt-3">Una mail ti sarà inviata all'indirizzo che hai indicato. Segui le istruzioni per reimpostare la tua password.</small>
+                    </form>
+                    <button type="submit" form="recpswd" class="btn btn-primary mt-3">Invia</button>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 @endsection
