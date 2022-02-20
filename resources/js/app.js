@@ -57,7 +57,7 @@ if(apps){
 if(loginMnt){
     const login = createApp({});
 
-    login.component('login-card', defineAsyncComponent(() => import('./vue/components/login/LoginCard.vue')));
+    login.component('login-form', defineAsyncComponent(() => import('./vue/components/login/LoginForm.vue')));
 
     login.mount(loginMnt);
 }

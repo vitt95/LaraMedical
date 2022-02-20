@@ -107,7 +107,7 @@ export default {
                 .then((response) => {
                     if(response.status == 200){
 
-                        window.location.href = `${document.location.origin}/${response.data.home}`;
+                        window.location.href = `${document.location.origin}${response.data.home}`;
                     }
                 })
                 .catch((error) => {
