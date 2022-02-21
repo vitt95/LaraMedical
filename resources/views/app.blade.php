@@ -1,3 +1,7 @@
+<?php
+    $user = Auth::user();
+
+?>
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 
@@ -27,11 +31,17 @@
 <body>
     <div id="apps" class="wrapper">
         <div id="sidebarMount">
-            <side-bar></side-bar>
+            <side-bar
+                user="{{$user}}"
+            ></side-bar>
         </div>
         <div class="main">
             <div id="navbarMount">
-                <nav-bar csrf="{{csrf_token()}}" logout="{{route('logout')}}"></nav-bar>
+                <nav-bar
+                    csrf="{{csrf_token()}}"
+                    logout="{{route('logout')}}"
+                    user="{{$user}}"
+                    ></nav-bar>
             </div>
             <main class="content">
                 <div id="inertia-c">

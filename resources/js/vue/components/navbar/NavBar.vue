@@ -252,7 +252,7 @@
                             class="avatar img-fluid rounded me-1"
                             alt="Charles Hall"
                         />
-                        <span class="text-dark">Charles Hall</span>
+                        <span class="text-dark">{{userData.name}} {{userData.lastname}}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
                         <a class="dropdown-item" href="pages-profile.html"
@@ -299,9 +299,18 @@
 <script>
 import feather from "feather-icons";
 
+
 export default {
 
-    props: ['logout', 'csrf'],
+    props: ['logout', 'csrf', 'user'],
+
+    setup(props){
+        let userData = JSON.parse(props.user);
+
+        return {
+            userData
+        }
+    },
 
     mounted() {
         feather.replace();

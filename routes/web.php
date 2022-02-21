@@ -7,6 +7,8 @@ use App\Models\MedicalStaff;
 use Faker\Provider\Medical;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,8 +42,4 @@ Route::middleware(['auth'])->group(function(){
         return $user->getAuthenticatedUser();
     });
 });
-
-Route::get('/index', [ReservationController::class, 'index']);
-Route::get('/doctor', [MedicalStaffController::class, 'index']);
-
 

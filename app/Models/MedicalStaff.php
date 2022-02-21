@@ -26,10 +26,14 @@ class MedicalStaff extends Authenticatable
     protected $hidden = [
         'password',
         'two_factor_secret',
-        'two_factor_recovery_codes'
+        'two_factor_recovery_codes',
+        'remember_token',
+        'email_verified_at',
+        'created_at',
+        'updated_at',
     ];
 
-    public $table = "medical_staff";
+    protected $table = "medical_staff";
 
     public function getAuthenticatedUser(){
         if(Auth::check()){
