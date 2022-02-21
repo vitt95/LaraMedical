@@ -43,5 +43,7 @@ class HandleInertiaRequests extends Middleware
                 'AuthUser' => Auth::user()
             ]);
         }
+
+        return [];
     }
 }
