@@ -248,7 +248,7 @@
                         data-bs-toggle="dropdown"
                     >
                         <img
-                            src="img/avatars/avatar.jpg"
+                            :src="userData.link_photo"
                             class="avatar img-fluid rounded me-1"
                             alt="Charles Hall"
                         />

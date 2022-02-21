@@ -1,6 +1,9 @@
 <?php
+    /*
+        If arrive here, auth is good
+        retrieve user just one time and inject it into vue components
+    */
     $user = Auth::user();
-
 ?>
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">

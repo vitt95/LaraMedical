@@ -10,7 +10,7 @@
             <div class="col-md-4 col-xl-3">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <h5 class="card-title mb-0">Profile Details</h5>
+                        <h5 class="card-title mb-0">Dettagli profilo</h5>
                     </div>
                     <div class="card-body text-center">
                         <img
@@ -20,7 +20,7 @@
                             width="128"
                             height="128"
                         />
-                        <h5 class="card-title mb-0">Christina Mason</h5>
+                        <h5 class="card-title mb-0">{{AuthUser.name}} {{AuthUser.lastname}}</h5>
                         <div class="text-muted mb-2">Lead Developer</div>
 
                         <div>
@@ -323,9 +323,13 @@
 <script>
 export default {
 
+    props: ['AuthUser'],
+
     mounted(){
         const event = new CustomEvent('child_component_index', {detail: 1});
         dispatchEvent(event);
+
+        console.log(this.AuthUser);
     }
 };
 </script>

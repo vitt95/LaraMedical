@@ -6,6 +6,7 @@ use App\Http\Controllers\MedicalStaffController;
 use App\Models\MedicalStaff;
 use Faker\Provider\Medical;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -31,15 +32,17 @@ Route::middleware(['auth'])->group(function(){
     });
 
     Route::get('/profile', function(){
-        return inertia('Profile');
-    });
-
-    Route::get('/add/patient', function(){
-        return inertia('PatientForm');
+        return Inertia::render('Profile', [
+            'user' => $user = Auth::user(),
+        ]);
     });
 
     Route::get('/user', function(MedicalStaff $user){
         return $user->getAuthenticatedUser();
+    });
+
+    Route::get('/add/patient', function(){
+        return inertia('PatientForm');
     });
 });
 
