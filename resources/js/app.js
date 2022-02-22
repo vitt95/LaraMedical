@@ -3,13 +3,15 @@ require('./bootstrap');
 import bootstrap from 'bootstrap';
 
 import { createApp, h , defineAsyncComponent} from 'vue'
-
+import feather from 'feather-icons';
 import { createInertiaApp } from '@inertiajs/inertia-vue3'
 import { InertiaProgress } from '@inertiajs/progress'
 
 //import DashBoard from './Pages/Dashboard.vue';
 
 // Wrapper to initialize vue native components
+
+
 const apps = document.getElementById("apps");
 
 const loginMnt = document.getElementById("loginmnt");
@@ -61,3 +63,6 @@ if(loginMnt){
 
     login.mount(loginMnt);
 }
+
+// Initialitze feather icons
+feather.replace();

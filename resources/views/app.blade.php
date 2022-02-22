@@ -36,6 +36,7 @@
         <div id="sidebarMount">
             <side-bar
                 user="{{$user}}"
+                role="{{json_decode($user->role_info)->role}}"
             ></side-bar>
         </div>
         <div class="main">

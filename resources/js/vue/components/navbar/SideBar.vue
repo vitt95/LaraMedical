@@ -1,6 +1,6 @@
 <template>
     <nav id="sidebar" class="sidebar js-sidebar">
-        <div class="sidebar-content js-simplebar">
+        <div v-if="role == 'medico'" class="sidebar-content js-simplebar">
             <a class="sidebar-brand" href="index.html">
                 <span class="align-middle">AdminKit</span>
             </a>
@@ -9,7 +9,7 @@
                 <li class="sidebar-header">Pages</li>
 
                 <li item="0" class="sidebar-item active">
-                    <Link class="sidebar-link" href="/dashboard" >
+                    <Link class="sidebar-link" href="/dashboard">
                         <i class="align-middle" data-feather="sliders"></i>
                         <span class="align-middle">Dashboard</span>
                     </Link>
@@ -22,10 +22,10 @@
                     </Link>
                 </li>
 
-                <li item="2" class="sidebar-item">
-                    <Link class="sidebar-link" href="/add/patient">
-                        <i class="align-middle" data-feather="log-in"></i>
-                        <span class="align-middle">Aggiungi paziente</span>
+                <li item="" class="sidebar-item">
+                    <Link class="sidebar-link" href="/exams">
+                        <i class="align-middle" data-feather="folder"></i>
+                        <span>I miei esami</span>
                     </Link>
                 </li>
 
@@ -44,28 +44,62 @@
                 </li>
             </ul>
         </div>
+        <div v-if="role == 'operatore'" class="sidebar-content js-simplebar">
+            <a class="sidebar-brand" href="index.html">
+                <span class="align-middle">AdminKit</span>
+            </a>
+            <ul class="sidebar-nav">
+                <li class="sidebar-header">Pages</li>
+
+                <li item="0" class="sidebar-item active">
+                    <Link class="sidebar-link" href="/dashboard">
+                        <i class="align-middle" data-feather="sliders"></i>
+                        <span class="align-middle">Dashboard</span>
+                    </Link>
+                </li>
+
+                <li item="1" class="sidebar-item">
+                    <Link class="sidebar-link" href="/profile">
+                        <i class="align-middle" data-feather="user"></i>
+                        <span class="align-middle">Profile</span>
+                    </Link>
+                </li>
+
+                <li item="" class="sidebar-item">
+                    <Link class="sidebar-link" href="/add/patient">
+                        <i class="align-middle" data-feather="user-plus"></i>
+                        <span>Aggiungi paziente</span>
+                    </Link>
+                </li>
+                <li item="" class="sidebar-item">
+                    <Link class="sidebar-link" href="/add/patient">
+                        <i class="align-middle" data-feather="users"></i>
+                        <span>Lista pazienti</span>
+                    </Link>
+                </li>
+            </ul>
+        </div>
     </nav>
 </template>
 
 <script>
 import SimpleBar from "simplebar";
-import {Link, useRemember} from '@inertiajs/inertia-vue3';
-import { Inertia } from '@inertiajs/inertia';
-import { computed } from '@vue/runtime-core';
+import { Link } from "@inertiajs/inertia-vue3";
 
 export default {
     components: {
-        Link
+        Link,
     },
 
-    props : ["index"],
+    props: ["index", "user", "role"],
 
     setup(props) {
-
         const index = props.index;
+        const AuthUser = JSON.parse(props.user);
 
         const initialize = () => {
-                const simplebarElement =
+            //feather.replace();
+            const simplebarElement =
                 document.getElementsByClassName("js-simplebar")[0];
 
             if (simplebarElement) {
@@ -107,7 +141,8 @@ export default {
         return {
             initialize,
             index,
-        }
+            AuthUser,
+        };
     },
 
     /**
@@ -116,23 +151,22 @@ export default {
     mounted() {
         this.initialize();
 
-        window.addEventListener('child_component_index', (evt) => {
+        window.addEventListener("child_component_index", (evt) => {
             this.setActive(evt.detail);
         });
     },
 
-    methods : {
-
-        setActive(index){
-            const sideElements = document.querySelectorAll('.sidebar-item');
+    methods: {
+        setActive(index) {
+            const sideElements = document.querySelectorAll(".sidebar-item");
             sideElements.forEach((elem) => {
-                if(elem.classList.contains('active')){
-                    elem.classList.remove('active');
+                if (elem.classList.contains("active")) {
+                    elem.classList.remove("active");
                 }
             });
-            sideElements[index].classList.add('active');
-        }
-    }
+            sideElements[index].classList.add("active");
+        },
+    },
 };
 </script>
 

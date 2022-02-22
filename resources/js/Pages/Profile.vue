@@ -14,14 +14,14 @@
                     </div>
                     <div class="card-body text-center">
                         <img
-                            src="https://demo-basic.adminkit.io/img/avatars/avatar-4.jpg"
+                            :src="AuthUser.link_photo"
                             alt="Christina Mason"
                             class="img-fluid rounded-circle mb-2"
                             width="128"
                             height="128"
                         />
                         <h5 class="card-title mb-0">{{AuthUser.name}} {{AuthUser.lastname}}</h5>
-                        <div class="text-muted mb-2">Lead Developer</div>
+                        <div class="text-muted mb-2">{{JSON.parse(AuthUser.role_info).role}}</div>
 
                         <div>
                             <a class="btn btn-primary btn-sm" href="#"
