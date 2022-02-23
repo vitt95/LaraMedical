@@ -4,9 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\MedicalStaffController;
 use App\Models\MedicalStaff;
+use App\Models\Patient;
 use Faker\Provider\Medical;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -44,5 +46,14 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/add/patient', function(){
         return inertia('PatientForm');
     });
+
+    Route::get('patients-list', function(){
+        return Inertia::render('PatientList');
+    });
 });
 
+Route::get('execute', [Patient::class, 'getJsonData']);
+
+Route::get('dtlanguageit', function(){
+    return Storage::disk('local')->get('lang.json');
+});

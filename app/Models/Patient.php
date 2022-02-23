@@ -17,4 +17,11 @@ class Patient extends Model
     protected $casts = [
         'birth' => 'date:m-d-Y'
     ];
+
+    public function getJsonData(){
+        $array['data'] = self::all()->toArray();
+
+        echo json_encode($array);
+    }
 }
+

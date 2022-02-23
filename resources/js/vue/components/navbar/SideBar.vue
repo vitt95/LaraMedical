@@ -72,7 +72,7 @@
                     </Link>
                 </li>
                 <li item="" class="sidebar-item">
-                    <Link class="sidebar-link" href="/add/patient">
+                    <Link class="sidebar-link" href="/patients-list">
                         <i class="align-middle" data-feather="users"></i>
                         <span>Lista pazienti</span>
                     </Link>
