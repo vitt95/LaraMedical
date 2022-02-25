@@ -57,3 +57,8 @@ Route::get('execute', [Patient::class, 'getJsonData']);
 Route::get('dtlanguageit', function(){
     return Storage::disk('local')->get('lang.json');
 });
+
+Route::get('testnat', function(){
+    header('Content-Type: application/json; charset=utf-8');
+    echo Storage::disk('local')->get('nations.json');
+});

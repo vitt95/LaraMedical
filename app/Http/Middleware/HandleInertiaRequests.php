@@ -40,7 +40,8 @@ class HandleInertiaRequests extends Middleware
         if(Auth::check()){
             return array_merge(parent::share($request), [
                 //
-                'AuthUser' => Auth::user()
+                'AuthUser' => Auth::user(),
+                'csrf' => csrf_token(),
             ]);
         }
 

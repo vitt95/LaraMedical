@@ -62,7 +62,7 @@
 @import "5-vendor/flatpickr";
 //@import "5-vendor/simplebar";
 
-
+@import "~flatpickr/dist/flatpickr.min.css";
 @import "~datatables.net-bs5/css/dataTables.bootstrap5.min.css";
 
 // 3rd party plugins
@@ -72,4 +72,9 @@
 @import "~flatpickr/dist/flatpickr";
 */
 
+@import "~intl-tel-input/build/css/intlTelInput.min.css";
 
+.iti__flag {background-image: url("../../node_modules/intl-tel-input/build/img/flags.png");}
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .iti__flag {background-image: url("../../node_modules/intl-tel-input/build/img/flags@2x.png");}
+}
