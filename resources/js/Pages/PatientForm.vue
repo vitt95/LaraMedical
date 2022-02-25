@@ -211,7 +211,6 @@ import * as Validator from "validatorjs";
 import flatpickr from "flatpickr";
 
 export default {
-
     props: ["csrf"],
 
     setup(props) {
@@ -220,6 +219,7 @@ export default {
         let errors = ref(null);
         let fullNations;
         let csrf = props.csrf;
+
         const init = () => {
             const inputMobile = document.getElementById("mobilePhone");
             const dateInput = document.getElementById("datebirth");
@@ -227,6 +227,8 @@ export default {
 
             flatpickr(dateInput, {
                 locale: Italian,
+                dateFormat: "d-m-Y",
+                maxDate: "today",
             });
 
             intlTelInput(inputMobile, {
@@ -241,7 +243,7 @@ export default {
             nations,
             fullNations,
             errors,
-            csrf
+            csrf,
         };
     },
 
@@ -311,6 +313,7 @@ export default {
                     "email",
                     "regex: ^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$",
                 ],
+                dateBirth: "required",
                 phoneNumber: "required|numeric",
                 mobileNumber: "numeric",
                 nation: ["string"],
@@ -344,6 +347,8 @@ export default {
                     "Il numero mobile deve essere un campo numerico (niente testo)",
                 "numeric.phoneNumber":
                     "Il numero di telefono deve essere un campo numerico (niente testo)",
+                "required.dateBirth":
+                    "La data di nascita è un campo obbligatorio",
             };
 
             let validation = new Validator(input, rules, messages);
@@ -351,7 +356,7 @@ export default {
             return validation;
         },
 
-        getFormData(){
+        getFormData() {
             let input = {};
             input.name = document.getElementById("name").value;
             input.lastname = document.getElementById("lastname").value;
@@ -379,9 +384,13 @@ export default {
                 return;
             }
             let headers = {
-                'X-CSRF-Token' : this.csrf
-            }
-            axios.post(`${document.location.origin}/patient/create`, input, headers);
+                "X-CSRF-Token": this.csrf,
+            };
+            axios.post(
+                `${document.location.origin}/patient/create`,
+                input,
+                headers
+            );
         },
     },
 };
