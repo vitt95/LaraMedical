@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Reservation extends Model
 {
@@ -24,6 +25,17 @@ class Reservation extends Model
 
     public function service(){
         return $this->hasOne(Service::class, 'foreign_key', 'id_patient');
+    }
+
+    public static function getReservationData(){
+        $array["data"] = DB::table('reservations')
+                                ->join('patients', 'reservations.id_patient', '=' ,'patients.id')
+                                ->join('services', 'reservations.id_service', '=', 'services.id')
+                                ->select('reservations.*', 'patients.name', 'patients.lastname', 'services.type')
+                                ->get()
+                                ->toArray();
+
+        echo json_encode($array);
     }
 
 }

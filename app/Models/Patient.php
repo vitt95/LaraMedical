@@ -18,6 +18,18 @@ class Patient extends Model
         'birth' => 'date:m-d-Y'
     ];
 
+    protected $fillable = [
+        'name',
+        'lastname',
+        'email',
+        'phone',
+        'mobile_phone',
+        'nation',
+        'birth',
+        'fiscal_code',
+        'address'
+    ];
+
     public function getJsonData(){
         $array['data'] = self::all()->toArray();
 

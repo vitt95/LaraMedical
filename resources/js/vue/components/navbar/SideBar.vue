@@ -59,22 +59,28 @@
                 </li>
 
                 <li item="1" class="sidebar-item">
-                    <Link class="sidebar-link" href="/profile">
+                    <Link class="sidebar-link" href="/prenotazione">
                         <i class="align-middle" data-feather="user"></i>
-                        <span class="align-middle">Profile</span>
+                        <span class="align-middle">Prenota visita</span>
                     </Link>
                 </li>
 
                 <li item="" class="sidebar-item">
-                    <Link class="sidebar-link" href="/add/patient">
+                    <Link class="sidebar-link" href="/aggiungi-paziente">
                         <i class="align-middle" data-feather="user-plus"></i>
                         <span>Aggiungi paziente</span>
                     </Link>
                 </li>
                 <li item="" class="sidebar-item">
-                    <Link class="sidebar-link" href="/patients-list">
+                    <Link class="sidebar-link" href="/lista-pazienti">
                         <i class="align-middle" data-feather="users"></i>
                         <span>Lista pazienti</span>
+                    </Link>
+                </li>
+                <li item="" class="sidebar-item">
+                    <Link class="sidebar-link" href="/lista-prenotazioni">
+                        <i class="align-middle" data-feather="users"></i>
+                        <span>Lista Prenotazioni</span>
                     </Link>
                 </li>
             </ul>

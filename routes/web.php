@@ -5,6 +5,7 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\MedicalStaffController;
 use App\Models\MedicalStaff;
 use App\Models\Patient;
+use App\Models\Reservation;
 use Faker\Provider\Medical;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,25 @@ Route::get('/session', function(Request $request){
     dd($request->session()->all());
 });
 
+
+/**
+ * Testing routes
+ */
+Route::get('execute', [Patient::class, 'getJsonData']);
+
+Route::get('dtlanguageit', function(){
+    return Storage::disk('local')->get('lang.json');
+});
+
+Route::get('testnat', function(){
+    header('Content-Type: application/json; charset=utf-8');
+    echo Storage::disk('local')->get('nations.json');
+});
+
+
+/**
+ * Protected routes
+ */
 Route::middleware(['auth'])->group(function(){
 
     Route::get('/dashboard', function () {
@@ -43,22 +63,23 @@ Route::middleware(['auth'])->group(function(){
         return $user->getAuthenticatedUser();
     });
 
-    Route::get('/add/patient', function(){
-        return inertia('PatientForm');
+    Route::get('/aggiungi-paziente', function(){
+        return inertia('Operator/PatientForm');
     });
 
-    Route::get('patients-list', function(){
-        return Inertia::render('PatientList');
+    Route::get('/lista-pazienti', function(){
+        return Inertia::render('Operator/PatientList');
     });
+
+    Route::get('/lista-prenotazioni', function(){
+        return Inertia::render('Operator/Reservations');
+    });
+
+    Route::post('/patient/create', [PatientController::class, 'create']);
+
+    Route::get('/reservations', [ReservationController::class, 'listReservation']);
 });
 
-Route::get('execute', [Patient::class, 'getJsonData']);
+Route::get('testjoin', [Reservation::class, 'getTestData']);
 
-Route::get('dtlanguageit', function(){
-    return Storage::disk('local')->get('lang.json');
-});
 
-Route::get('testnat', function(){
-    header('Content-Type: application/json; charset=utf-8');
-    echo Storage::disk('local')->get('nations.json');
-});

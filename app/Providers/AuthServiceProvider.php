@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Patient;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
