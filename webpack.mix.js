@@ -14,4 +14,5 @@ const mix = require('laravel-mix');
 mix.js(['resources/js/app.js', 'resources/js/theme/theme.js'], 'public/js')
     .sourceMaps()
     .sass('resources/scss/app.scss', 'public/css/')
+    .version()
     .vue();

@@ -47,11 +47,13 @@ export default {
                     ],
                 },
                 columnDefs: [
-                    {className: "desktop meddesktop", targets: [0,1,2,3,4]},
-                    {className: "smalldesktop", targets: [0,1,2,3] },
-                    {className: "medium", targets: [0,2,3]},
-                    {className: "tabletl", targets: [0,3]}
-
+                    {
+                        className: "desktop meddesktop",
+                        targets: [0, 1, 2, 3, 4],
+                    },
+                    { className: "smalldesktop", targets: [0, 1, 2, 3] },
+                    { className: "medium", targets: [0, 2, 3] },
+                    { className: "tabletl", targets: [0, 3] },
                 ],
                 ajax: {
                     url: `${document.location.origin}/execute`,
@@ -82,10 +84,13 @@ export default {
         const event = new CustomEvent("child_component_index", { detail: 3 });
         dispatchEvent(event);
     },
+
+    beforeUnmount() {
+        let table = $("#table_id").DataTable();
+        $(table).remove();
+        table.clear().destroy();
+    },
 };
 </script>
 
-
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

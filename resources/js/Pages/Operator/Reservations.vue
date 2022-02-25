@@ -73,6 +73,15 @@ export default {
         this.init();
         const event = new CustomEvent("child_component_index", { detail: 4 });
         dispatchEvent(event);
+    },
+
+    /**
+     * Need to clear and destroy previous table before re-rendering
+     */
+    beforeUnmount(){
+        let table = $('#reservation-table-id').DataTable();
+        table.clear();
+        table.destroy();
     }
 };
 </script>
