@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h1 class="h3 mb-3">Lista Pazienti</h1>
+                <h1 class="h3 mb-3"><strong>Lista</strong> Pazienti</h1>
                 <table id="table_id" class="display responsive">
                     <thead>
                         <tr>
