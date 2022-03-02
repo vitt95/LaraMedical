@@ -5,6 +5,41 @@
                 <h1 class="h3 mb-3"><strong>Aggiungi</strong> Paziente</h1>
 
                 <form class="row g-3" method="post">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <div class="form-check form-check-inline align-end">
+                                <input id="sexFemale"
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="flexRadioDefault"
+                                    value="female"
+                                />
+                                <label
+                                    class="form-check-label"
+                                    for="flexRadioDefault2"
+                                >
+                                    Femmina
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline align-end">
+                                <label for="" class="form-label"></label>
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    name="flexRadioDefault"
+                                    id="sexMale"
+                                    value="male"
+                                    checked
+                                />
+                                <label
+                                    class="form-check-label"
+                                    for="flexRadioDefault1"
+                                >
+                                    Maschio
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-4">
                         <label for="name" class="form-label">Nome</label>
                         <input
@@ -32,9 +67,10 @@
                             type="text"
                             class="form-control"
                             id="datebirth"
+                            placeholder="YYYY-dd-mm"
                         />
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="CF" class="form-label"
                             >Codice fiscale</label
                         >
@@ -44,18 +80,6 @@
                             class="form-control"
                             id="CF"
                         />
-                    </div>
-                    <div class="col-md-2">
-                        <label for="sesso" class="form-label">Sesso</label>
-                        <select
-                            id="sesso"
-                            name="sesso"
-                            class="form-select"
-                            aria-label="Default select example"
-                        >
-                            <option value="M" selected>Maschio</option>
-                            <option value="F">Femmina</option>
-                        </select>
                     </div>
                     <div class="row g-3">
                         <div class="col-md-4">
@@ -178,11 +202,19 @@
 
                     <div class="col-12">
                         <button
+                            v-if="!isUp"
                             @click.prevent="submitForm()"
                             type="submit"
                             class="btn btn-primary"
                         >
                             Registra
+                        </button>
+                        <button v-else class="btn btn-primary" disabled>
+                            <span
+                                class="spinner-border spinner-border-sm"
+                                role="status"
+                                aria-hidden="true"
+                            ></span>
                         </button>
                     </div>
                 </form>
@@ -217,6 +249,7 @@ export default {
         let isLoading = ref(true);
         let nations = ref();
         let errors = ref(null);
+        let isUp = ref(false);
         let fullNations;
         let csrf = props.csrf;
 
@@ -240,6 +273,7 @@ export default {
             init,
             isLoading,
             nations,
+            isUp,
             fullNations,
             errors,
             csrf,
@@ -304,6 +338,7 @@ export default {
         },
 
         submitForm() {
+            this.isUp = true;
             let input = getFormData();
             let validation = validateInput(input);
             if (!validation.passes()) {
@@ -317,11 +352,17 @@ export default {
             let headers = {
                 "X-CSRF-Token": this.csrf,
             };
-            axios.post(
-                `${document.location.origin}/patient/create`,
-                input,
-                headers
-            );
+            axios
+                .post(
+                    `${document.location.origin}/patient/create`,
+                    input,
+                    headers
+                )
+                .then((resp) => {
+                    this.isUp = false;
+                    if (resp.data.status == 201) {
+                    }
+                });
         },
     },
 };
@@ -359,6 +400,14 @@ export default {
             cursor: pointer;
         }
     }
+}
+
+#datebirth {
+    background: #fff;
+}
+
+.align-end {
+    float: inline-end;
 }
 
 .errors {

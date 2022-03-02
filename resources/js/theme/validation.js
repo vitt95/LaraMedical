@@ -73,7 +73,11 @@ function getFormData() {
     input.address = document.getElementById("inputAddress").value;
     input.city = document.getElementById("inputCity").value;
     input.birth = document.getElementById("datebirth").value;
-    input.sex = document.getElementById("sesso").value;
+
+    input.sex = document.getElementById("sexMale").checked ?
+                document.getElementById("sexMale").value :
+                document.getElementById("sexFemale").value;
+
     input.zip = document.getElementById("inputZip").value
 
     //console.log(input.city + input.birth);

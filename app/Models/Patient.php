@@ -27,7 +27,10 @@ class Patient extends Model
         'nation',
         'birth',
         'fiscal_code',
-        'address'
+        'address',
+        'sex',
+        'zip',
+        'city'
     ];
 
     public function getJsonData(){

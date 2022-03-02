@@ -40,14 +40,18 @@ class PatientController extends Controller
             'address' => 'required|string|max:100',
             'city' => 'required|string|max:100',
             'birth' => 'required',
-            'sex' => 'required|string',
+            'sex' => ['required', function($attribute, $value, $fail){
+                if($value !== 'male' && $value !== 'female'){
+                    $fail('The '.$attribute.' is invalid');
+                }
+            }],
             'zip' => 'required|numeric'
         ]);
 
         // data is valid
 
         try{
-            $model = \App\Models\Patient::create([
+            $response["resource"] = \App\Models\Patient::create([
                 'name' => $request->name,
                 'lastname' => $request->lastname,
                 'email' => $request->email,
@@ -57,14 +61,15 @@ class PatientController extends Controller
                 'birth' => $request->birth,
                 'fiscal_code' => $request->fiscal_code,
                 'address' => $request->address,
-                'sex' => $request->sex,
-                'zip' => $request->zip
+                'sex' => (string)$request->sex,
+                'zip' => $request->zip,
+                'city' => $request->city
             ]);
 
             $response["status"] = 201;
             $response["message"] = "Created";
-            $response["resource"] = $model;
         }catch(Exception $ex){
+
             $response["status"] = $ex->getCode();
             $response["message"] = $ex->getMessage();
         }
