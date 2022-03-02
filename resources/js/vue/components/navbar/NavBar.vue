@@ -299,7 +299,6 @@
 <script>
 import feather from "feather-icons";
 
-
 export default {
 
     props: ['logout', 'csrf', 'user'],

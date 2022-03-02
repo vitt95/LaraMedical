@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import SimpleBar from "simplebar";
+import { initialize } from "../../../theme/sidebar";
 import { Link } from "@inertiajs/inertia-vue3";
 
 export default {
@@ -103,49 +103,7 @@ export default {
         const index = props.index;
         const AuthUser = JSON.parse(props.user);
 
-        const initialize = () => {
-            //feather.replace();
-            const simplebarElement =
-                document.getElementsByClassName("js-simplebar")[0];
-
-            if (simplebarElement) {
-                const simplebarInstance = new SimpleBar(
-                    document.getElementsByClassName("js-simplebar")[0]
-                );
-
-                /* Recalculate simplebar on sidebar dropdown toggle */
-                const sidebarDropdowns = document.querySelectorAll(
-                    ".js-sidebar [data-bs-parent]"
-                );
-
-                sidebarDropdowns.forEach((link) => {
-                    link.addEventListener("shown.bs.collapse", () => {
-                        simplebarInstance.recalculate();
-                    });
-                    link.addEventListener("hidden.bs.collapse", () => {
-                        simplebarInstance.recalculate();
-                    });
-                });
-            }
-
-            const sidebarElement =
-                document.getElementsByClassName("js-sidebar")[0];
-            const sidebarToggleElement =
-                document.getElementsByClassName("js-sidebar-toggle")[0];
-
-            if (sidebarElement && sidebarToggleElement) {
-                sidebarToggleElement.addEventListener("click", () => {
-                    sidebarElement.classList.toggle("collapsed");
-
-                    sidebarElement.addEventListener("transitionend", () => {
-                        window.dispatchEvent(new Event("resize"));
-                    });
-                });
-            }
-        };
-
         return {
-            initialize,
             index,
             AuthUser,
         };
@@ -155,7 +113,7 @@ export default {
      * Index is provided by server through a laravel wrapper component
      */
     mounted() {
-        this.initialize();
+        initialize();
 
         window.addEventListener("child_component_index", (evt) => {
             this.setActive(evt.detail);
