@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Http\Request;
 
@@ -24,6 +25,9 @@ class PatientController extends Controller
      */
     public function create(Request $request)
     {
+
+        $response = [];
+
         $validator = $request->validate([
             'name' => 'required|max:255',
             'lastname' => 'required|max:255',
@@ -33,24 +37,39 @@ class PatientController extends Controller
             'nation' => 'string',
             'fiscal_code' => 'required|string|max:20',
             'cap' => 'numeric',
-            'address' => 'required|string',
-            'city' => 'required|string',
-            'birth' => 'required'
+            'address' => 'required|string|max:100',
+            'city' => 'required|string|max:100',
+            'birth' => 'required',
+            'sex' => 'required|string',
+            'zip' => 'required|numeric'
         ]);
 
         // data is valid
 
-        \App\Models\Patient::create([
-            'name' => $request->name,
-            'lastname' => $request->lastname,
-            'email' => $request->email,
-            'phone' => $request->phoneNumber,
-            'mobile_phone' => $request->mobileNumber,
-            'nation' => $request->nation,
-            'birth' => $request->birth,
-            'fiscal_code' => $request->fiscal_code,
-            'address' => $request->address,
-        ]);
+        try{
+            $model = \App\Models\Patient::create([
+                'name' => $request->name,
+                'lastname' => $request->lastname,
+                'email' => $request->email,
+                'phone' => $request->phoneNumber,
+                'mobile_phone' => $request->mobileNumber,
+                'nation' => $request->nation,
+                'birth' => $request->birth,
+                'fiscal_code' => $request->fiscal_code,
+                'address' => $request->address,
+                'sex' => $request->sex,
+                'zip' => $request->zip
+            ]);
+
+            $response["status"] = 201;
+            $response["message"] = "Created";
+            $response["resource"] = $model;
+        }catch(Exception $ex){
+            $response["status"] = $ex->getCode();
+            $response["message"] = $ex->getMessage();
+        }
+
+        return json_encode($response);
     }
 
     /**

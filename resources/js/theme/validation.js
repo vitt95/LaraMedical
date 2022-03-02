@@ -17,6 +17,8 @@ function validateInput(input) {
         cap: ["required", "numeric"],
         address: "required|string",
         city: "required|string",
+        sex: "required|string",
+        zip: "required|numeric",
     };
 
     let messages = {
@@ -45,6 +47,12 @@ function validateInput(input) {
             "Il numero di telefono deve essere un campo numerico (niente testo)",
         "required.birth":
             "La data di nascita è un campo obbligatorio",
+        "required.sex" :
+            "Specificare il sesso del paziente",
+        "required.zip" :
+            "Specificare il CAP",
+        "numeric.zip" :
+            "Il CAP deve essere un campo numerico"
     };
 
     let validation = new Validator(input, rules, messages);
@@ -64,7 +72,9 @@ function getFormData() {
     input.cap = document.getElementById("inputZip").value;
     input.address = document.getElementById("inputAddress").value;
     input.city = document.getElementById("inputCity").value;
-    input.birth = document.getElementById('datebirth').value;
+    input.birth = document.getElementById("datebirth").value;
+    input.sex = document.getElementById("sesso").value;
+    input.zip = document.getElementById("inputZip").value
 
     //console.log(input.city + input.birth);
 

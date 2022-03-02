@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
-
+use App\Http\Controllers\PatientController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
