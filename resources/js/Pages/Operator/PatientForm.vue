@@ -411,13 +411,7 @@ export default {
             if (ev.target.value != "") {
                 getItalianCities(ev.target.value)
                     .then((resp) => {
-                        let cities = [];
-                        //this.cities = resp.cities;
-                        resp.forEach((value, key, map) => {
-                            cities.push({ cap: key, nome: value });
-                        });
-
-                        this.reactProps.cities = cities;
+                        this.reactProps.cities = resp;
                     })
                     .catch((error) => console.log(error));
             } else {

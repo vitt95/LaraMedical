@@ -45,11 +45,11 @@ const getItalianProvinces = function(country){
  */
 const getItalianCities = function(province){
     return new Promise(async (resolve, reject) => {
-        let cities = new Map();
+        let cities = [];
         const response = await axios.get(`${API_COUNTRY_URL}/comuni/provincia/${province}`);
         if(response.status == 200){
             (response.data).map(resp => {
-                cities.set(resp.cap, resp.nome)
+                cities.push({cap: resp.cap, nome: resp.nome});
             })
             resolve(cities);
         } else reject(response);
