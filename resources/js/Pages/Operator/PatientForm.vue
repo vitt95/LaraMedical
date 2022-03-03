@@ -353,7 +353,10 @@ export default {
                     .catch((error) => {
                         console.log(error);
                     });
-            } else this.provinces = null;
+            } else {
+                this.provinces = null;
+                this.cities = null;
+            }
 
         },
 
