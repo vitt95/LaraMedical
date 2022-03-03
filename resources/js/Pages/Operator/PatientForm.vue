@@ -8,7 +8,8 @@
                     <div class="row g-3">
                         <div class="col-12">
                             <div class="form-check form-check-inline align-end">
-                                <input id="sexFemale"
+                                <input
+                                    id="sexFemale"
                                     class="form-check-input"
                                     type="radio"
                                     name="flexRadioDefault"
@@ -117,77 +118,92 @@
                         </div>
                         <div class="col-4">
                             <label for="inputAddress" class="form-label"
-                                >Indirizzo</label
+                                >Regione</label
                             >
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="inputAddress"
-                                placeholder="1234 Main St"
-                            />
+                            <div v-if="countries == null">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    list="regioniList"
+                                    disabled
+                                />
+                            </div>
+                            <div v-else>
+                                <input
+                                    @input="italianProvinces($event)"
+                                    type="text"
+                                    class="form-control"
+                                    list="regionList"
+                                />
+                                <datalist id="regionList">
+                                    <template
+                                        v-for="(country, index) in countries"
+                                        :key="index"
+                                    >
+                                        <option>{{ country }}</option>
+                                    </template>
+                                </datalist>
+                            </div>
                         </div>
                         <div class="col-md-4">
                             <label for="inputCity" class="form-label"
-                                >Città</label
+                                >Provincia</label
                             >
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="inputCity"
-                            />
+                            <div v-if="provinces == null">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    list="provinceList"
+                                    disabled
+                                />
+                            </div>
+                            <div v-else>
+                                <input
+                                    @input="italianCities($event)"
+                                    type="text"
+                                    class="form-control"
+                                    list="provinceList"
+                                />
+                                <datalist id="provinceList">
+                                    <template
+                                        v-for="(province, index) in provinces"
+                                        :key="index"
+                                    >
+                                        <option :data-index="index">
+                                            {{ province }}
+                                        </option>
+                                    </template>
+                                </datalist>
+                            </div>
                         </div>
                         <div class="col-md-4 relative">
                             <label for="inputState" class="form-label"
-                                >Nazione</label
+                                >Città</label
                             >
-                            <input
-                                v-if="isLoading"
-                                disabled
-                                type="text"
-                                class="form-control"
-                                id="inputNation"
-                                placeholder="Nazione"
-                            />
-                            <input
-                                v-else
-                                @blur="hideMenu($event)"
-                                @focus="showMenu($event)"
-                                @keyup="autoSuggest($event)"
-                                type="text"
-                                class="form-control"
-                                id="inputNation"
-                                placeholder="Nazione"
-                            />
-
-                            <div
-                                v-if="!isLoading"
-                                class="menu-selection col-5"
-                                id="nations-menu"
-                            >
-                                <ul class="list-group">
+                            <div v-if="cities == null">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    list="provinceList"
+                                    disabled
+                                />
+                            </div>
+                            <div v-else>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    list="citylist"
+                                />
+                                <datalist id="citylist">
                                     <template
-                                        v-for="(n, index) in nations"
+                                        v-for="(city, index) in cities"
                                         :key="index"
                                     >
-                                        <li
-                                            @click="selectItem($event, n)"
-                                            :index="index"
-                                            class="list-item nat-item"
-                                        >
-                                            <span class="nat-image"
-                                                ><img
-                                                    :src="
-                                                        'data:image/png;base64, ' +
-                                                        n.flag
-                                                    "
-                                                    alt=""
-                                            /></span>
-                                            <span class="nat-name">{{
-                                                n.name
-                                            }}</span>
-                                        </li>
+                                        <option :data-index="index">
+                                            {{ city }}
+                                        </option>
                                     </template>
-                                </ul>
+                                </datalist>
                             </div>
                         </div>
                         <div class="col-2 align-self-end">
@@ -242,15 +258,22 @@ import intlTelInput from "intl-tel-input";
 import { ref } from "@vue/reactivity";
 import flatpickr from "flatpickr";
 
+import {
+    getItalianCountries,
+    getItalianProvinces,
+    getItalianCities,
+} from "../../theme/async-services";
+
 export default {
     props: ["csrf"],
 
     setup(props) {
         let isLoading = ref(true);
-        let nations = ref();
+        let countries = ref(null);
         let errors = ref(null);
         let isUp = ref(false);
-        let fullNations;
+        let provinces = ref(null);
+        let cities = ref(null);
         let csrf = props.csrf;
 
         const init = () => {
@@ -272,9 +295,10 @@ export default {
         return {
             init,
             isLoading,
-            nations,
+            countries,
+            cities,
+            provinces,
             isUp,
-            fullNations,
             errors,
             csrf,
         };
@@ -284,59 +308,14 @@ export default {
         const event = new CustomEvent("child_component_index", { detail: 2 });
         dispatchEvent(event);
 
-        this.init();
-
-        axios.get(`${document.location.origin}/testnat`).then((resp) => {
-            console.log(resp);
-            this.isLoading = false;
-            this.nations = resp.data;
-            this.fullNations = resp.data;
+        getItalianCountries().then((resp) => {
+            this.countries = resp.data;
         });
+
+        this.init();
     },
 
     methods: {
-        autoSuggest(ev) {
-            this.nations = this.nations.filter((nation) =>
-                nation.name
-                    .toLowerCase()
-                    .startsWith(ev.target.value.toLowerCase())
-            );
-            if (ev.target.value == "") {
-                this.nations = this.fullNations;
-            }
-
-            if (ev.target.value !== "" && this.nations.length == 0) {
-                console.log("Invalid country name");
-                ev.target.style.border = "2px solid red";
-            } else ev.target.style.border = "1px solid #ced4da";
-        },
-
-        showMenu(ev) {
-            //console.log(ev.target);
-            ev.target.nextSibling.style.opacity = 1;
-            ev.target.nextSibling.style.display = "block";
-        },
-
-        hideMenu(ev) {
-            ev.target.nextSibling.style.opacity = 0;
-            setTimeout(() => {
-                ev.target.nextSibling.style.display = "none";
-            }, 300);
-        },
-
-        selectItem(ev, nation) {
-            //console.log(ev.target);
-            if (ev.target.tagName == "SPAN") {
-                ev.target.parentNode.parentNode.parentNode.previousSibling.value =
-                    nation.name;
-            }
-
-            if (ev.target.tagName == "LI") {
-                ev.target.parentNode.parentNode.previousSibling.value =
-                    nation.name;
-            }
-        },
-
         submitForm() {
             this.isUp = true;
             let input = getFormData();
@@ -363,6 +342,29 @@ export default {
                     if (resp.data.status == 201) {
                     }
                 });
+        },
+
+        italianProvinces(ev) {
+            if (ev.target.value != "") {
+                getItalianProvinces(ev.target.value)
+                    .then((resp) => {
+                        this.provinces = resp;
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            } else this.provinces = null;
+
+        },
+
+        italianCities(ev) {
+            if (ev.target.value != "") {
+                getItalianCities(ev.target.value)
+                    .then((resp) => {
+                        this.cities = resp;
+                    })
+                    .catch((error) => console.log(error));
+            } else this.cities = null;
         },
     },
 };
