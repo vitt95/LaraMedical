@@ -95,18 +95,14 @@ export default {
             this.isLoading = true;
 
             const data = {
-                    email: Email,
-                    password: document.getElementById("passwordlogin").value,
-                },
-                headers = {
-                    "X-CSRF-Token": document.getElementById("cstoken").value,
-                };
+                email: Email,
+                password: document.getElementById("passwordlogin").value,
+            };
 
             axios
-                .post("/login", data, headers)
+                .post("/login", data)
                 .then((response) => {
-                    if(response.status == 200){
-
+                    if (response.status == 200) {
                         window.location.href = `${document.location.origin}${response.data.home}`;
                     }
                 })

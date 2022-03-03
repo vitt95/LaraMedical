@@ -24,13 +24,14 @@ class Patient extends Model
         'email',
         'phone',
         'mobile_phone',
-        'nation',
         'birth',
         'fiscal_code',
         'address',
         'sex',
         'zip',
-        'city'
+        'city',
+        'region',
+        'province'
     ];
 
     public function getJsonData(){

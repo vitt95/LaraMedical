@@ -12,11 +12,13 @@ function validateInput(input) {
         birth: "required",
         phoneNumber: "required|numeric",
         mobileNumber: "numeric",
-        nation: ["string"],
+        //nation: ["string"],
         fiscal_code: ["required", "string"],
+        region: ["required", "string"],
         cap: ["required", "numeric"],
-        address: "required|string",
+        //address: "required|string",
         city: "required|string",
+        province: "required|string",
         sex: "required|string",
         zip: "required|numeric",
     };
@@ -37,10 +39,8 @@ function validateInput(input) {
             "Il nome deve essere un campo contenente solo testo",
         "string.lastname":
             "Il cognome deve essere un campo contenente solo testo",
-        "string.nation":
-            "La nazione deve essere un campo contenente solo testo",
         "string.city":
-            "La città deve essere un campo contenente solo testo",
+            "Specificare la città di residenza del paziente",
         "numeric.mobileNumber":
             "Il numero mobile deve essere un campo numerico (niente testo)",
         "numeric.phoneNumber":
@@ -49,16 +49,30 @@ function validateInput(input) {
             "La data di nascita è un campo obbligatorio",
         "required.sex" :
             "Specificare il sesso del paziente",
-        "required.zip" :
+        "required.cap" :
             "Specificare il CAP",
-        "numeric.zip" :
-            "Il CAP deve essere un campo numerico"
+        "numeric.cap" :
+            "Il CAP deve essere un campo numerico",
+        "required.region":
+            "Specificare la regione del paziente",
+        "required.province":
+            "Specificare la provincia del paziente"
     };
 
     let validation = new Validator(input, rules, messages);
 
     return validation;
 };
+
+
+function populateTestInput(){
+    document.getElementById("name").value = "Vittorio";
+    document.getElementById("lastname").value = "Aiello";
+    document.getElementById("emailAddress").value = "vittorioaiello95@gmail.com";
+    document.getElementById("phoneNumber").value = "3348076677";
+    document.getElementById("mobilePhone").value = "3348076677";
+    document.getElementById("CF").value = "LLAVTR95A03C129X";
+}
 
 function getFormData() {
     let input = {};
@@ -67,13 +81,12 @@ function getFormData() {
     input.email = document.getElementById("emailAddress").value;
     input.phoneNumber = document.getElementById("phoneNumber").value;
     input.mobileNumber = document.getElementById("mobilePhone").value;
-    input.nation = document.getElementById("inputNation").value;
     input.fiscal_code = document.getElementById("CF").value;
     input.cap = document.getElementById("inputZip").value;
-    input.address = document.getElementById("inputAddress").value;
-    input.city = document.getElementById("inputCity").value;
+    input.region = document.getElementById("regione").value;
+    input.province = document.getElementById("provincia").value;
+    input.city = document.getElementById("citta").value;
     input.birth = document.getElementById("datebirth").value;
-
     input.sex = document.getElementById("sexMale").checked ?
                 document.getElementById("sexMale").value :
                 document.getElementById("sexFemale").value;
@@ -89,4 +102,5 @@ function getFormData() {
 export{
     getFormData,
     validateInput,
+    populateTestInput
 }

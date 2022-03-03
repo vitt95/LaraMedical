@@ -34,11 +34,12 @@ class PatientController extends Controller
             'email' => 'required|email',
             'phoneNumber' => 'required|numeric',
             'mobileNumber' => 'numeric',
-            'nation' => 'string',
+            'region' => 'required|string|max:50',
+            'province' => 'required|string|max:50',
             'fiscal_code' => 'required|string|max:20',
             'cap' => 'numeric',
-            'address' => 'required|string|max:100',
-            'city' => 'required|string|max:100',
+            //'address' => 'required|string|max:100',
+            'city' => 'required|string|max:60',
             'birth' => 'required',
             'sex' => ['required', function($attribute, $value, $fail){
                 if($value !== 'male' && $value !== 'female'){
@@ -57,13 +58,14 @@ class PatientController extends Controller
                 'email' => $request->email,
                 'phone' => $request->phoneNumber,
                 'mobile_phone' => $request->mobileNumber,
-                'nation' => $request->nation,
                 'birth' => $request->birth,
                 'fiscal_code' => $request->fiscal_code,
-                'address' => $request->address,
+                'address' => 'Via fratte 45',
                 'sex' => (string)$request->sex,
-                'zip' => $request->zip,
-                'city' => $request->city
+                'zip' => (string) $request->zip,
+                'city' => (string) $request->city,
+                'region' => (string) $request->region,
+                'province' => (string) $request->province,
             ]);
 
             $response["status"] = 201;

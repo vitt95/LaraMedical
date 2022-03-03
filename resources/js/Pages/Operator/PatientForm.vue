@@ -3,7 +3,6 @@
         <div class="card">
             <div class="card-body">
                 <h1 class="h3 mb-3"><strong>Aggiungi</strong> Paziente</h1>
-
                 <form class="row g-3" method="post">
                     <div class="row g-3">
                         <div class="col-12">
@@ -120,12 +119,13 @@
                             <label for="inputAddress" class="form-label"
                                 >Regione</label
                             >
-                            <div v-if="countries == null">
+                            <div v-if="reactProps.countries == null">
                                 <input
                                     type="text"
                                     class="form-control"
                                     list="regioniList"
                                     disabled
+                                    id="regione"
                                 />
                             </div>
                             <div v-else>
@@ -134,10 +134,13 @@
                                     type="text"
                                     class="form-control"
                                     list="regionList"
+                                    id="regione"
                                 />
                                 <datalist id="regionList">
                                     <template
-                                        v-for="(country, index) in countries"
+                                        v-for="(
+                                            country, index
+                                        ) in reactProps.countries"
                                         :key="index"
                                     >
                                         <option>{{ country }}</option>
@@ -149,12 +152,13 @@
                             <label for="inputCity" class="form-label"
                                 >Provincia</label
                             >
-                            <div v-if="provinces == null">
+                            <div v-if="reactProps.provinces == null">
                                 <input
                                     type="text"
                                     class="form-control"
                                     list="provinceList"
                                     disabled
+                                    id="provincia"
                                 />
                             </div>
                             <div v-else>
@@ -163,10 +167,13 @@
                                     type="text"
                                     class="form-control"
                                     list="provinceList"
+                                    id="provincia"
                                 />
                                 <datalist id="provinceList">
                                     <template
-                                        v-for="(province, index) in provinces"
+                                        v-for="(
+                                            province, index
+                                        ) in reactProps.provinces"
                                         :key="index"
                                     >
                                         <option :data-index="index">
@@ -180,12 +187,13 @@
                             <label for="inputState" class="form-label"
                                 >Città</label
                             >
-                            <div v-if="cities == null">
+                            <div v-if="reactProps.cities == null">
                                 <input
                                     type="text"
                                     class="form-control"
                                     list="provinceList"
                                     disabled
+                                    id="citta"
                                 />
                             </div>
                             <div v-else>
@@ -193,15 +201,26 @@
                                     type="text"
                                     class="form-control"
                                     list="citylist"
+                                    @change="italianCap($event)"
+                                    id="citta"
                                 />
                                 <datalist id="citylist">
                                     <template
-                                        v-for="(city, index) in cities"
+                                        v-for="(
+                                            item, index
+                                        ) in reactProps.cities"
                                         :key="index"
                                     >
-                                        <option :data-index="index">
-                                            {{ city }}
+                                        <option :data-index="item.cap">
+                                            {{ item.nome }}
                                         </option>
+                                        <input
+                                            type="hidden"
+                                            :data-cap="
+                                                item.nome.replace(/\s/g, '')
+                                            "
+                                            :value="item.cap"
+                                        />
                                     </template>
                                 </datalist>
                             </div>
@@ -212,13 +231,14 @@
                                 type="text"
                                 class="form-control"
                                 id="inputZip"
+                                disabled
                             />
                         </div>
                     </div>
 
                     <div class="col-12">
                         <button
-                            v-if="!isUp"
+                            v-if="!reactProps.isUploading"
                             @click.prevent="submitForm()"
                             type="submit"
                             class="btn btn-primary"
@@ -236,24 +256,33 @@
                 </form>
             </div>
         </div>
-        <div v-if="errors !== null" class="col-12 errors">
-            <ul>
-                <li
-                    class="list-item-error"
-                    style="list-style: none"
-                    v-for="(e, index) in errors.errors"
-                    :key="index"
-                >
-                    <p class="text-danger">{{ e.pop() }}</p>
-                </li>
-            </ul>
+        <div v-if="reactProps.errors !== null" class="col-12 errors">
+            <template v-for="(e, index) in reactProps.errors.errors" :key="index">
+                <div class="alert alert-danger" role="alert">
+                    {{e.pop()}}
+                </div>
+            </template>
+        </div>
+        <div v-if="reactProps.patientCreated == 'created'">
+            <div class="alert alert-success" role="alert">
+                Utente creato con successo !
+            </div>
+        </div>
+        <div v-if="reactProps.patientCreated == 'duplicate'">
+            <div class="alert alert-danger" role="alert">
+                Utente già presente nel sistema !
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import axios from "axios";
-import { validateInput, getFormData } from "../../theme/validation";
+import {
+    validateInput,
+    getFormData,
+    populateTestInput,
+} from "../../theme/validation";
 import intlTelInput from "intl-tel-input";
 import { ref } from "@vue/reactivity";
 import flatpickr from "flatpickr";
@@ -267,13 +296,21 @@ import {
 export default {
     props: ["csrf"],
 
+    data() {
+        return {};
+    },
+
     setup(props) {
-        let isLoading = ref(true);
-        let countries = ref(null);
-        let errors = ref(null);
-        let isUp = ref(false);
-        let provinces = ref(null);
-        let cities = ref(null);
+        let reactProps = ref({
+            isLoading: true,
+            isUploading: false,
+            errors: null,
+            countries: null,
+            provinces: null,
+            cities: null,
+            patientCreated: null,
+        });
+
         let csrf = props.csrf;
 
         const init = () => {
@@ -294,13 +331,8 @@ export default {
 
         return {
             init,
-            isLoading,
-            countries,
-            cities,
-            provinces,
-            isUp,
-            errors,
             csrf,
+            reactProps,
         };
     },
 
@@ -309,21 +341,24 @@ export default {
         dispatchEvent(event);
 
         getItalianCountries().then((resp) => {
-            this.countries = resp.data;
+            this.reactProps.countries = resp.data;
         });
 
         this.init();
+
+        populateTestInput();
     },
 
     methods: {
         submitForm() {
-            this.isUp = true;
+            this.reactProps.isUploading = true;
             let input = getFormData();
             let validation = validateInput(input);
             if (!validation.passes()) {
-                this.errors = validation.errors;
+                this.reactProps.errors = validation.errors;
+                this.reactProps.isUploading = false;
                 setTimeout(() => {
-                    this.errors = null;
+                    this.reactProps.errors = false;
                 }, 3500);
 
                 return;
@@ -338,36 +373,69 @@ export default {
                     headers
                 )
                 .then((resp) => {
-                    this.isUp = false;
                     if (resp.data.status == 201) {
+                        this.reactProps.patientCreated = 'created';
                     }
+
+                    if (resp.data.status == 23000) {
+                        this.reactProps.patientCreated = "duplicate";
+                    }
+                })
+                .finally((resp) => {
+                    this.reactProps.isUploading = false;
+                    setTimeout(() => {
+                        this.reactProps.patientCreated = null;
+                    }, 2000);
                 });
         },
 
         italianProvinces(ev) {
+            const capRecipient = document.getElementById("inputZip");
             if (ev.target.value != "") {
                 getItalianProvinces(ev.target.value)
                     .then((resp) => {
-                        this.provinces = resp;
+                        this.reactProps.provinces = resp;
                     })
                     .catch((error) => {
                         console.log(error);
                     });
             } else {
-                this.provinces = null;
-                this.cities = null;
+                this.reactProps.provinces = null;
+                this.reactProps.cities = null;
+                capRecipient.value = "";
             }
-
         },
 
         italianCities(ev) {
+            const capRecipient = document.getElementById("inputZip");
             if (ev.target.value != "") {
                 getItalianCities(ev.target.value)
                     .then((resp) => {
-                        this.cities = resp;
+                        let cities = [];
+                        //this.cities = resp.cities;
+                        resp.forEach((value, key, map) => {
+                            cities.push({ cap: key, nome: value });
+                        });
+
+                        this.reactProps.cities = cities;
                     })
                     .catch((error) => console.log(error));
-            } else this.cities = null;
+            } else {
+                this.reactProps.cities = null;
+                capRecipient.value = "";
+            }
+        },
+
+        italianCap(ev) {
+            const capRecipient = document.getElementById("inputZip");
+            if (ev.target.value != "") {
+                const cap = document.querySelector(
+                    `[data-cap=${ev.target.value.replace(/\s/g, "")}]`
+                ).value;
+                capRecipient.value = cap;
+            } else {
+                capRecipient.value = "";
+            }
         },
     },
 };

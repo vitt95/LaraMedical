@@ -6,6 +6,7 @@ const API_COUNTRY_URL = 'https://comuni-ita.herokuapp.com/api'
 
 import axios from "axios";
 
+
 /**
  * Retrieve all Italian Countries
  * @returns {Promise<Any>}
@@ -44,17 +45,16 @@ const getItalianProvinces = function(country){
  */
 const getItalianCities = function(province){
     return new Promise(async (resolve, reject) => {
-        let cities = [];
+        let cities = new Map();
         const response = await axios.get(`${API_COUNTRY_URL}/comuni/provincia/${province}`);
         if(response.status == 200){
             (response.data).map(resp => {
-                cities.push(resp.nome);
+                cities.set(resp.cap, resp.nome)
             })
             resolve(cities);
         } else reject(response);
     });
 }
-
 
 export{
     getItalianCountries,
