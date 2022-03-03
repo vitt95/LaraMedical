@@ -130,7 +130,7 @@
                             </div>
                             <div v-else>
                                 <input
-                                    @input="italianProvinces($event)"
+                                    @change="italianProvinces($event)"
                                     type="text"
                                     class="form-control"
                                     list="regionList"
@@ -159,7 +159,7 @@
                             </div>
                             <div v-else>
                                 <input
-                                    @input="italianCities($event)"
+                                    @change="italianCities($event)"
                                     type="text"
                                     class="form-control"
                                     list="provinceList"
