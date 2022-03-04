@@ -16,7 +16,7 @@ class Service extends Model
      */
 
     protected $cast = [
-        'duration' => 'time:m:s',
-        'delta' => 'time:m:s'
+        'duration' => 'time:i:s',
+        'delta' => 'time:i:s'
     ];
 }

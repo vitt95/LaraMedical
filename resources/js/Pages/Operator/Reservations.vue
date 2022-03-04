@@ -9,6 +9,7 @@
                             <th>ID</th>
                             <th>Nome</th>
                             <th>Data</th>
+                            <th>Ora</th>
                             <th>Tipo visita</th>
                         </tr>
                     </thead>

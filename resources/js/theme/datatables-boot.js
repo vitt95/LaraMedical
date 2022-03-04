@@ -88,6 +88,7 @@ function initReservationsTable(tableId){
           {data: "id"},
           {data: "name"},
           {data: "date"},
+          {data: "time"},
           {data: "type"},
         ]
     });

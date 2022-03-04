@@ -59,7 +59,7 @@
                 </li>
 
                 <li item="1" class="sidebar-item">
-                    <Link class="sidebar-link" href="/prenotazione">
+                    <Link class="sidebar-link" href="/prenota-visita">
                         <i class="align-middle" data-feather="user"></i>
                         <span class="align-middle">Prenota visita</span>
                     </Link>

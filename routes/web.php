@@ -77,6 +77,10 @@ Route::middleware(['auth'])->group(function(){
         return Inertia::render('Operator/Reservations');
     });
 
+    Route::get('prenota-visita', function(){
+        return Inertia::render('Operator/ReservationForm');
+    });
+
     Route::post('/patient/create', [PatientController::class, 'create']);
 
     Route::get('/reservations', [ReservationController::class, 'listReservation']);

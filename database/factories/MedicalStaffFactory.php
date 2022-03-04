@@ -2,10 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\MedicalStaff;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 class MedicalStaffFactory extends Factory
 {
+
+    protected $model = MedicalStaff::class;
     /**
      * Define the model's default state.
      *
@@ -18,10 +22,10 @@ class MedicalStaffFactory extends Factory
             'lastname' => $this->faker->lastName(),
             'fiscal_code' => $this->faker->taxId(),
             'phone_number' => $this->faker->phoneNumber(),
-            'mobile_number' => $this->faker->phoneNumber,
+            'mobile_number' => $this->faker->phoneNumber(),
             'email' => $this->faker->email(),
             'email_verified_at' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
-            'password' => $this->faker->password,
+            'password' => Hash::make($this->faker->password),
             'role_info' => $this->random_json_info(),
             'link_photo' => $this->faker->imageUrl(),
         ];

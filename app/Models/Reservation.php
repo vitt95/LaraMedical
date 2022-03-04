@@ -16,7 +16,8 @@ class Reservation extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'date' => 'date:d-m-Y HH:mm',
+        'date' => 'date:d-m-Y',
+        'time' => 'time:i:s'
     ];
 
     public function patient(){

@@ -22,10 +22,13 @@ class CreatePatientTable extends Migration
             $table->string("mobile_phone", 25);
             $table->date("birth");
             $table->string("address", 255);
+            $table->string('region', 50);
+            $table->string('province', 50);
+            $table->string('city', 60);
+            $table->string('zip', 8);
             $table->string("email", 255)->unique();
             $table->text("note");
             $table->string("fiscal_code", 20);
-            $table->string("nation", 100);
             $table->enum("sex", ["male", "female", "other"]);
             $table->string("heigth", 5);
             $table->string("weigth", 5);

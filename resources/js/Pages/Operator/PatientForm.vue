@@ -283,9 +283,9 @@ import {
     getFormData,
     populateTestInput,
 } from "../../theme/validation";
-import intlTelInput from "intl-tel-input";
 import { ref } from "@vue/reactivity";
 import flatpickr from "flatpickr";
+
 
 import {
     getItalianCountries,
@@ -321,11 +321,6 @@ export default {
             flatpickr(dateInput, {
                 locale: Italian,
                 maxDate: "today",
-            });
-
-            intlTelInput(inputMobile, {
-                initialCountry: "it",
-                separateDialCode: true,
             });
         };
 
