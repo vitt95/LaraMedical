@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\PatientController;
+use Illuminate\Support\Facades\Redirect;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -78,8 +80,13 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/patient/create', [PatientController::class, 'create']);
 
     Route::get('/reservations', [ReservationController::class, 'listReservation']);
+
+    Route::get('/profilo/paziente/{id}', [PatientController::class, 'show']);
 });
 
-Route::get('testjoin', [Reservation::class, 'getTestData']);
+//Route::get('testjoin', [Reservation::class, 'getTestData']);
 
+Route::get('/', function(){
+    return redirect('dashboard', 301);
+});
 
