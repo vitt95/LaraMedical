@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Reservation;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReservationController extends Controller
 {
@@ -91,4 +92,18 @@ class ReservationController extends Controller
     public function listReservation(){
         return Reservation::getReservationData();
     }
+
+    /**
+     * Check available dates for reservation from now to
+     */
+    public function getTimeForDate($date){
+        $currentMonth = date('m');
+        return DB::table('reservations')
+            ->whereRaw('MONTH(date) = ?', [$currentMonth])
+            ->orderBy('date')
+            ->get();
+
+
+    }
+
 }

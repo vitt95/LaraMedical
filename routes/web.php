@@ -94,3 +94,5 @@ Route::get('/', function(){
     return redirect('dashboard', 301);
 });
 
+Route::get('/api/reservation/available/{date}', [ReservationController::class, 'getTimeForDate']);
+

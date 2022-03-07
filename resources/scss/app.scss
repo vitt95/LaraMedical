@@ -29,6 +29,7 @@
 @import "./node_modules/bootstrap/scss/_spinners.scss";*/
 
 @import "./node_modules/bootstrap/scss/bootstrap.scss";
+@import "./node_modules/bootstrap-icons/font/bootstrap-icons.scss";
 
 // Theme mixins
 @import "2-mixins/button";
@@ -54,6 +55,7 @@
 @import "3-components/type";
 @import "3-components/wrapper";
 
+
 // Theme utilities
 @import "4-utilities/cursors";
 
@@ -73,9 +75,5 @@
 @import "~flatpickr/dist/flatpickr";
 */
 
-@import "~intl-tel-input/build/css/intlTelInput.min.css";
 
-.iti__flag {background-image: url("../../node_modules/intl-tel-input/build/img/flags.png");}
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .iti__flag {background-image: url("../../node_modules/intl-tel-input/build/img/flags@2x.png");}
-}
+
