@@ -95,6 +95,9 @@
          currentDay,
          daysPrevMonth,
          nextMonthDayDifference,
+         year,
+         month,
+         day
      }
  ) => {
      let nextCounter = 0;
@@ -107,6 +110,9 @@
          params.daysInMonth + params.paddingDays + params.nextMonthDayDifference;
          d++
      ) {
+         let date = new Date();
+         date.setFullYear(params.year, params.month, d-1);
+         //console.log(date.toLocaleDateString());
          if (d % days.length == 1) {
              let tr = document.createElement("tr");
              tr.classList.add("tr-body");
@@ -114,6 +120,7 @@
          }
          let row = document.getElementsByClassName("tr-body");
          let td = document.createElement("td");
+         td.setAttribute('data-date', date.toLocaleDateString())
          let daydiv;
          if (
              d > params.paddingDays &&
@@ -193,7 +200,9 @@
          daysPrevMonth,
          firstDay,
          nextMonthDayDifference,
+         year,
          month,
+         day
      },
      fundOptions = defaultConfig
  ) => {
@@ -297,6 +306,8 @@
          daysPrevMonth,
          firstDay,
          nextMonthDayDifference,
+         year,
+         day,
          month,
      };
 
