@@ -6,6 +6,8 @@
  * Full calendar inspired.
  */
 
+ import resizeCalendar from "./responsive.js";
+
  const MONTH = 11;
 
  const months = [
@@ -33,12 +35,9 @@
      "Domenica",
  ];
 
- const defaultConfig = {
-    disableWeekend : true,
-    disableCol : [],
-    iconNext : "default",
-    iconPrev : "default",
- }
+
+
+
 
  const shortDays = ["Lun", "Mar", "Mer", "Giov", "Ven", "Sab", "Dom"];
 
@@ -95,10 +94,8 @@
          currentDay,
          daysPrevMonth,
          nextMonthDayDifference,
-         year,
-         month,
-         day
-     }
+     },
+     config
  ) => {
      let nextCounter = 0;
      let preCounter = params.daysPrevMonth - params.paddingDays;
@@ -111,7 +108,7 @@
          d++
      ) {
          let date = new Date();
-         date.setFullYear(params.year, params.month, d-1);
+         date.setFullYear(config.year, config.month, d-1);
          //console.log(date.toLocaleDateString());
          if (d % days.length == 1) {
              let tr = document.createElement("tr");
@@ -120,13 +117,14 @@
          }
          let row = document.getElementsByClassName("tr-body");
          let td = document.createElement("td");
+         td.classList.add('calendarTd')
          td.setAttribute('data-date', date.toLocaleDateString())
          let daydiv;
          if (
              d > params.paddingDays &&
              d - params.paddingDays <= params.daysInMonth
          ) {
-             daydiv = `<div class="day" data-date="">${
+             daydiv = `<div class="day">${
                  d - params.paddingDays
              }</div>`;
          } else if (d <= params.paddingDays) {
@@ -151,14 +149,14 @@
   */
  const buildCalendarFundamentals = (
      month,
-     config = defaultConfig
+     config
  ) => {
      let thead = `<thead>
      <tr id="calendarDaysRow"></tr>
  </thead>`;
 
-     let iconPrev = config.iconPrev != "default" ? '<i class="bi bi-caret-left-square-fill"></i>' : config.iconPrev;
-     let iconNext = config.iconNext != "default" ? '<i class="bi bi-caret-right-square-fill"></i>' : config.iconNext;
+     let iconPrev = config.iconPrev == "default" ? '<i class="bi bi-caret-left-square-fill"></i>' : config.iconPrev;
+     let iconNext = config.iconNext == "default" ? '<i class="bi bi-caret-right-square-fill"></i>' : config.iconNext;
      let caption = `<caption>
  <small id="iconPrevCalendar">
      ${iconPrev}
@@ -170,7 +168,7 @@
  </caption>
  <colgroup class="weekday" span="5"></colgroup>
  <colgroup class="weekend ${
-         config.disableWeekend ? "disabled" : ""
+         config.disableWeekend == true ? "disabled" : ""
      }" span="2"></colgroup>
  `;
 
@@ -204,7 +202,7 @@
          month,
          day
      },
-     fundOptions = defaultConfig
+     config
  ) => {
      let tableDiv = document.getElementById(tableId);
 
@@ -214,7 +212,7 @@
      }
 
      // Build calendar fundamentals
-     let html = buildCalendarFundamentals(params.month, fundOptions);
+     let html = buildCalendarFundamentals(params.month, config);
 
      // Hook fundamentals to mount point
      tableDiv.insertAdjacentElement("afterbegin", html);
@@ -223,7 +221,11 @@
      generateDaysRow("calendarDaysRow", {
          shortDays: true,
      });
-     generateTableCells(params);
+     generateTableCells(params, config);
+
+     if(config.responsive == true){
+        resizeCalendar(tableId);
+     }
  };
 
  /**
@@ -236,8 +238,9 @@
 
  const createTableBody = (
      tableId,
-     config = defaultConfig
+     config
  ) => {
+     console.log(config);
      let year = config.year == null ? __year : config.year;
      let month = config.month == null ? __month : config.month;
      let day = config.day == null ? __day : config.day;
@@ -312,7 +315,7 @@
      };
 
      buildTableMarkup(tableId, params, config);
-     addEventToButtons(tableId, params);
+     addEventToButtons(tableId, config);
  };
 
  /**
@@ -322,9 +325,29 @@
   */
  const buildCalendar = (
      tableId,
-     config = defaultConfig
+     {
+        disableWeekend = true,
+        disableCol = [],
+        iconNext = "default",
+        iconPrev = "default",
+        responsive = false,
+        year = __year,
+        month = __month,
+        day = __day
+    } = {}
  ) => {
-     createTableBody(tableId, config);
+    let config = {
+        responsive,
+        disableWeekend,
+        iconNext,
+        iconPrev,
+        year,
+        month,
+        day,
+        disableCol
+    }
+
+    createTableBody(tableId, config);
  };
 
  export { buildCalendar };

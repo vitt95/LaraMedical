@@ -21578,6 +21578,99 @@ table.dataTable td {
   box-sizing: content-box;
 }
 
+.calendar-table.table > :not(:first-child) {
+  border-top: none !important;
+}
+
+.calendar-table.table {
+  border-collapse: none !important;
+}
+
+.calendar-table.table thead,
+.calendar-table.table tbody,
+.calendar-table.table tfoot,
+.calendar-table.table tr,
+.calendar-table.table td,
+.calendar-table.table th {
+  border-color: none;
+}
+
+table.calendar-table {
+  border-collapse: unset !important;
+  border-spacing: 3px;
+}
+
+.calendar-table .table thead,
+.calendar-table .table tbody,
+.calendar-table .table tfoot,
+.calendar-table .table tr,
+.calendar-table .table td,
+.calendar-table .table th {
+  border-color: none;
+}
+.calendar-table tr {
+  border: 1px solid #000 !important;
+}
+.calendar-table caption {
+  text-align: center;
+  font-size: 1.6em;
+  color: #000;
+  caption-side: top;
+}
+.calendar-table th {
+  text-align: center;
+}
+.calendar-table td.calendarTd {
+  width: 7em;
+  height: 7em;
+  padding: 5px;
+  vertical-align: top;
+  position: relative;
+  border: 1px solid #000;
+}
+.calendar-table td.calendarTd .day {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 11pt;
+  color: #000;
+}
+.calendar-table td.disabled {
+  background-color: #9d9393;
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+.calendar-table .weekend.disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+  background: #dddddd;
+}
+.calendar-table #iconPrevCalendar {
+  margin-right: 30px;
+}
+.calendar-table #iconNextCalendar {
+  margin-left: 30px;
+}
+.calendar-table #iconNextCalendar :hover,
+.calendar-table #iconPrevCalendar :hover {
+  cursor: pointer;
+}
+.calendar-table td.calendarTd.minus {
+  height: 3em;
+}
+.calendar-table td.calendarTd.little {
+  height: 4em;
+}
+.calendar-table td.calendarTd.medium {
+  height: 4.5em;
+}
+.calendar-table td.calendarTd.large {
+  height: 5em;
+}
+.calendar-table td.calendarTd.xlarge {
+  height: 7em;
+}
+
 /*
 @import "~jsvectormap/dist/css/jsvectormap";
 @import "~simplebar/dist/simplebar";

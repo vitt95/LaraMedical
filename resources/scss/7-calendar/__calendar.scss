@@ -1,0 +1,114 @@
+@mixin disabled {
+    background-color: #9d9393;
+    cursor: not-allowed;
+    pointer-events: all !important;
+}
+
+.calendar-table.table > :not(:first-child) {
+    border-top: none !important;
+}
+
+.calendar-table.table {
+    border-collapse: none !important;
+}
+
+.calendar-table.table thead,
+.calendar-table.table tbody,
+.calendar-table.table tfoot,
+.calendar-table.table tr,
+.calendar-table.table td,
+.calendar-table.table th {
+    border-color: none;
+}
+
+table.calendar-table {
+    border-collapse: unset !important;
+    border-spacing: 3px;
+}
+
+.calendar-table {
+    .table thead,
+    .table tbody,
+    .table tfoot,
+    .table tr,
+    .table td,
+    .table th {
+        border-color: none;
+    }
+
+    tr {
+        border: 1px solid #000 !important;
+    }
+
+    caption {
+        text-align: center;
+        font-size: 1.6em;
+        color: #000;
+        caption-side: top;
+    }
+
+    th {
+        text-align: center;
+    }
+
+    td.calendarTd {
+        width: 7em;
+        height: 7em;
+        padding: 5px;
+        vertical-align: top;
+        position: relative;
+        border: 1px solid #000;
+        .day {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            font-size: 11pt;
+            color: #000;
+        }
+    }
+
+    td.disabled {
+        @include disabled();
+    }
+
+    .weekend.disabled {
+        cursor: not-allowed;
+        pointer-events: all !important;
+        background: #dddddd;
+    }
+
+    #iconPrevCalendar {
+        margin-right: 30px;
+    }
+
+    #iconNextCalendar {
+        margin-left: 30px;
+    }
+
+    #iconNextCalendar,
+    #iconPrevCalendar {
+        :hover {
+            cursor: pointer;
+        }
+    }
+
+    td.calendarTd.minus {
+        height: 3em;
+    }
+
+    td.calendarTd.little {
+        height: 4em;
+    }
+
+    td.calendarTd.medium {
+        height: 4.5em;
+    }
+
+    td.calendarTd.large {
+        height: 5em;
+    }
+
+    td.calendarTd.xlarge {
+        height: 7em;
+    }
+}
